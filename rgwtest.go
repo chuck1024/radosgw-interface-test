@@ -26,7 +26,7 @@ func CreateUser(uid string){
 	}
 
 	if len(userInfo.Keys) == 0 {
-		// 创建一个 key
+		// create a key
 		keys, err := RgwAdmin.CreateKey(uid)
 		if err != nil {
 			logging.Error("errors occur while RgwAdmin.CreateKey(%s): %s", uid, err.Error())
@@ -78,7 +78,7 @@ func CreateBucket(rgwClientUser rgw_client.RgwClient,uid,bucket string)error{
 		logging.Error("errors occur while add caps \"buckets=write\" to app %s: %s", uid, err.Error())
 		return err
 	}
-	// 无论是否创建成功，收回 bucket 的写权限
+	// remove bucket write caps
 	if _, err := RgwAdmin.RemoveUserCaps(uid, "buckets=write"); err != nil {
 		logging.Error("errors occur while remove caps \"buckets=write\" from app %s: %s", uid, err.Error())
 	}
@@ -283,7 +283,7 @@ func main(){
 	case "MultiUpload":
 		MultiUpload(rgwClientUser,*uid,*bucket,*object,*objPath)
 	case "ImpressUploadDownload":
-		for {
+		for i:=0;i<10;i++ {
 			ImpressUploadDownload(rgwClientUser,*uid,*bucket,*object,*objPath)
 		}
 	}
