@@ -191,9 +191,9 @@ func UploadDownload(rgwClientUser rgw_client.RgwClient,uid,bucket,object,objPath
 }
 
 func ImpressUploadDownload(rgwClientUser rgw_client.RgwClient,uid,bucket,object,objPath string){
-	n := runtime.GOMAXPROCS(runtime.NumCPU())
+	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	for i := 0; i< n;i++{
+	for i := 0; i< runtime.NumCPU();i++{
 		wg.Add(1)
 		go func (){
 			UploadDownload(rgwClientUser,uid,bucket,object,objPath)
