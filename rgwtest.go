@@ -73,16 +73,6 @@ func GetUsage(uid,start,end string)error{
 }
 
 func CreateBucket(rgwClientUser rgw_client.RgwClient,uid,bucket string)error{
-	_, err := RgwAdmin.AddUserCaps(uid, "buckets=write")
-	if err != nil {
-		logging.Error("errors occur while add caps \"buckets=write\" to app %s: %s", uid, err.Error())
-		return err
-	}
-	// remove bucket write caps
-	if _, err := RgwAdmin.RemoveUserCaps(uid, "buckets=write"); err != nil {
-		logging.Error("errors occur while remove caps \"buckets=write\" from app %s: %s", uid, err.Error())
-	}
-
 	acl := ACLPrivate
 	err = rgwClientUser.CreateBucket(bucket, acl)
 	if err != nil {
