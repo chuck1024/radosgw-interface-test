@@ -273,8 +273,6 @@ func main(){
 	case "MultiUpload":
 		MultiUpload(rgwClientUser,*uid,*bucket,*object,*objPath)
 	case "ImpressUploadDownload":
-		for i:=0;i<10;i++ {
-			ImpressUploadDownload(rgwClientUser,*uid,*bucket,*object,*objPath)
-		}
+		ImpressUploadDownload(rgwClientUser,*uid,*bucket,*object,*objPath)
 	}
 }
